@@ -73,6 +73,42 @@
                     </li>
                 </ul>
             </li>
+            <li class="nav-main-item{{ request()->is('examples/*') ? ' open' : '' }}">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                    <i class="nav-main-link-icon si si-bulb"></i>
+                    <span class="nav-main-link-name">Страни</span>
+                </a>
+                <ul class="nav-main-submenu">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link{{ request()->is('examples/plugin') ? ' active' : '' }}" href="{{route('scountry.index')}}">
+                            <span class="nav-main-link-name">Всички Страни</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link{{ request()->is('examples/blank') ? ' active' : '' }}" href="{{route('scountry.create')}}">
+                            <span class="nav-main-link-name">Нова Страна</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-main-item{{ request()->is('examples/*') ? ' open' : '' }}">
+                <a class="nav-main-link nav-main-link-submenu" data-toggle="submenu" aria-haspopup="true" aria-expanded="true" href="#">
+                    <i class="nav-main-link-icon si si-bulb"></i>
+                    <span class="nav-main-link-name">Категории</span>
+                </a>
+                <ul class="nav-main-submenu">
+                    <li class="nav-main-item">
+                        <a class="nav-main-link{{ request()->is('examples/plugin') ? ' active' : '' }}" href="{{route('scategory.index')}}">
+                            <span class="nav-main-link-name">Всички Категории</span>
+                        </a>
+                    </li>
+                    <li class="nav-main-item">
+                        <a class="nav-main-link{{ request()->is('examples/blank') ? ' active' : '' }}" href="{{route('scategory.create')}}">
+                            <span class="nav-main-link-name">Нова Категория</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
             <li class="nav-main-heading">Други Страници</li>
             <li class="nav-main-item open">
                 <a class="nav-main-link" href="/message">

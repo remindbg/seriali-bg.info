@@ -15,9 +15,9 @@ class StelevisionController extends Controller
      */
     public function index()
     {
-        $stelevision = Stelevision::with('series')->get();
+        $tvs = Stelevision::with('series')->get();
 
-        return view('admin.series.stelevision.index',compact('stelevision'));
+        return view('admin.series.stelevision.index',compact('tvs'));
     }
 
     /**

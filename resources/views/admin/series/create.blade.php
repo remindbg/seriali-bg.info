@@ -1,13 +1,5 @@
 @extends('layouts.adminapp')
 
-@section('css')
-
-@endsection
-@section('css_after')
-
-@endsection
-
-
 @section('content')
     <div class="card mb-20 shadow-sm shadow-hover-lg">
         <div class="card-body">
@@ -16,68 +8,88 @@
 
                 <div class="row">
                     <div class="col-sm">
-                        <form class="mb-15" action="{{route('series.store')}}" method="post">
+                        <form class="mb-15" action="{{route('series.store')}}" method="post" enctype="multipart/form-data">
                             @csrf
                             @method('post')
                             <div class="row">
                                 <div class="col-md-7">
                                     <div class="form-group">
                                         <label for="name">Заглавие / Име на Сериал</label>
-                                        <input type="text" name="name" id="name" class="form-control" aria-describedby="name">
+                                        <input type="text" value="" name="name" id="name" class="form-control" aria-describedby="name">
 
                                     </div>
                                 </div>
                                 <div class="col-md-3">
                                     <div class="form-group">
-                                        <label for="slug">Slug - остави празно засега</label>
-                                        <input type="text" disabled="disabled" name="name" id="slug" class="form-control" aria-describedby="slug">
-
+                                        <label for="slug">Slug</label>
+                                        <input aria-describedby="slug" class="form-control" id="slug" name="slug"
+                                               type="text" value="">
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <textarea class="form-control mt-15" name="description" rows="3" placeholder="Описание"></textarea>
+                                <textarea class="form-control mt-15" name="description" placeholder="Описание" rows="3"></textarea>
+                            </div>
+
+                            <hr>
+
+                            <div class="form-group">
+                                <div class="hk-sec-wrapper">
+                                    <h5 class="hk-sec-title">Изображение</h5>
+                                    <p class="mb-40">Override your input files with style. Find more options
+                                        <a href="http://jeremyfagis.github.io/dropify/" target="_blank">here</a>.</p>
+                                    <div  class="row">
+                                        <div class="col-sm">
+                                            <input type="file" name="image" id="input-file-now" class="dropify" />
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row">
-
                                 <div class="col-md-4">
                                     <div class="form-group">
-                                        <label for="tvpublisher">Телевизия</label>
+                                        <label for="slug">Year</label>
+                                        <input  class="form-control" id="year" name="year"
+                                                type="text" value="">
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="tv">Телевизия</label>
 
                                         <select name="tv" id="tv" class="form-control custom-select  mt-15">
-                                            <h5 class="hk-sec-title">Телевизия</h5>
-                                            @foreach ($tvs as $tv)
-                                                <option value="{{$tv->id}}">{{$tv->name}}</option>
-                                            @endforeach
+                                           @foreach($tvs as $tv)
+                                            <option value="{{$tv->id}}">{{$tv->name}}</option>
+                                           @endforeach
                                         </select>
                                     </div>
                                 </div>
 
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="tvpublisher">Страна</label>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="country">Страна</label>
 
-                                    <select name="tv1" id="serieslang" class="form-control custom-select  mt-15">
-                                        <h5 class="hk-sec-title">Страна</h5>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="tvpublisher">Категория</label>
+                                        <select name="country" id="country" class="form-control custom-select  mt-15">
+                                            <h5 class="hk-sec-title">Страна</h5>
+                                            @foreach($countries as $country)
+                                                <option value="{{$country->id}}">{{$country->name}}</option>
+                                            @endforeach
+                                        </select>
 
-                                    <select name="tvpublisher" id="tvpublisher" class="form-control custom-select  mt-15">
-                                        <h5 class="hk-sec-title">Категория</h5>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
+                                    </div>
                                 </div>
-                            </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="cat">Категория</label>
+
+                                        <select name="cat" id="cat" class="form-control custom-select  mt-15">
+                                            @foreach($cats as $cat)
+                                                <option value="{{$cat->id}}">{{$cat->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
 
                             </div>
 
@@ -87,8 +99,10 @@
                                 <label class="custom-control-label" for="isactive">Активна?</label>
                             </div>
                             <hr>
-                           <button type="submit" class="btn btn-outline-primary">Създай Нов Сериал</button>
+                            <button type="submit" class="btn btn-outline-primary">Създаване на Сериал</button>
                         </form>
+
+
                     </div>
                 </div>
             </section>
@@ -97,7 +111,11 @@
 @endsection
 
 @section('scripts')
+    <!-- Dropify JavaScript -->
 
 
 @endsection
 
+@section('css')
+
+@endsection

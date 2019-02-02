@@ -22,8 +22,7 @@ class CreateSeriesTable extends Migration
             $table->longText('description')->nullable();
             $table->unsignedInteger('views')->default(1);
             $table->boolean('isactive')->default(0);
-            $table->year('releaseyear')->nullable();
-            $table->string('currentSeason')->nullable();
+            $table->string('year')->nullable();
             $table->unsignedInteger('uniqueid')->nullable();
             //relations
             $table->unsignedInteger('stelevision_id')->nullable();

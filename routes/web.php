@@ -30,6 +30,10 @@ Route::get('/admin', function () {
 });
 Route::resources([
     '/admin/series' => 'admin\SeriesController',
-    '/admin/stelevision' => 'admin\StelevisionController'
-
+    '/admin/stelevision' => 'admin\StelevisionController',
+    '/admin/scountry' => 'admin\ScountryController',
+    '/admin/scategory' => 'admin\ScategoryController'
 ]);
+
+Route::post('/admin/series/{id}/editimage', 'admin\SeriesController@deleteimage')->name('deleteimage');
+

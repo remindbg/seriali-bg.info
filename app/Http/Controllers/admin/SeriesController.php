@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Scategory;
+use App\Scountry;
 use App\Series;
 use App\Stelevision;
 use Illuminate\Http\Request;
@@ -18,6 +20,7 @@ class SeriesController extends Controller
      */
     public function index()
     {
+
         $series = Series::all();
         return view('admin.series.index',compact('series'));
 
@@ -31,7 +34,9 @@ class SeriesController extends Controller
     public function create()
     {
         $tvs = Stelevision::all();
-        return view('admin.series.create',compact('tvs'));
+        $cats = Scategory::all();
+        $countries = Scountry::all();
+        return view('admin.series.create',compact('tvs','cats','countries'));
     }
 
     /**
@@ -49,13 +54,23 @@ class SeriesController extends Controller
         $series->description = $request['description'];
         $uniqueid =  rand(111111,999999);
         $series->uniqueid = $uniqueid;
-        // start some migration stuff
-        $series->stelevision_id = $request->input('tv');
+        $series->year = $request['year'];
+        // start some  stuff for  the relations
 
-        $saved = $series->save();
-        if($saved) {
-            Storage::disk('uploads')->makeDirectory('/seriali/'.$slug .'-'.$uniqueid);
-        }
+        $series->stelevision_id = $request->input('tv');
+        $series->scountry_id =  $request->input('country');
+        $series->scategory_id =  $request->input('cat');
+            $makedir = Storage::disk('uploads')->makeDirectory('/seriali/'.$slug .'-'.$uniqueid);
+            if($makedir) {
+                $extension = $request->file('image')->extension();
+                $path = $request->file('image')->storeAs(
+                    'seriali/'. $slug . '-' . $uniqueid, $slug . '.'. $extension
+                );
+            }
+        $series->image = $path;
+        $series->save();
+
+
         return redirect()->route('series.index')->with('message','Успешно Добавен Сериал');
 
     }
@@ -70,7 +85,11 @@ class SeriesController extends Controller
     public function edit($id)
     {
         $serial = Series::find($id);
-        return view('admin.series.edit',compact('serial'));
+        $countries = Scountry::all();
+            $tvs = Stelevision::all();
+                $cats = Scategory::all();
+
+        return view('admin.series.edit',compact('serial','countries','tvs','cats'));
 
     }
 
@@ -84,6 +103,20 @@ class SeriesController extends Controller
     public function update(Request $request, $id)
     {
         $serial = Series::find($id);
+        $serial->name = $request['name'];
+        $serial->description = $request['description'];
+        $serial->slug = $request['slug'];
+        $serial->year = $request['year'];
+
+        /*
+         * relations
+         */
+        $serial->stelevision_id = $request->input('tv');
+        $serial->scountry_id =  $request->input('country');
+        $serial->scategory_id =  $request->input('cat');
+        $serial->save();
+        return redirect()->route('series.index')->with('message','Успешна Редакция');
+
     }
 
     /**
@@ -108,15 +141,20 @@ class SeriesController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+  /*
+   * bad but i`ll deal with that later
+   * todo: proper edit image / maybe ajax
+   */
+
+  public function deleteimage($id) {
+      $serial = Series::find($id);
+      $image_path = $serial->image;
+
+      Storage::delete($image_path);
+      $serial->image = null;
+
+      $serial->save();
+      return redirect()->back()->with('message','снимката е изтрита');
+  }
 
 }

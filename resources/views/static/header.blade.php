@@ -90,15 +90,14 @@ MAIN CONTENT LAYOUT
                 <!-- Toggle Mini Sidebar -->
                 <!-- Layout API, functionality initialized in Template._uiApiLayout()-->
                 <button type="button" class="btn btn-sm btn-dual mr-2 d-none d-lg-inline-block" data-toggle="layout" data-action="sidebar_mini_toggle">
-                    <i class="fa fa-fw fa-ellipsis-v"></i>
+                   <i class="fa fa-fw fa-ellipsis-v"></i>
                 </button>
                 <!-- END Toggle Mini Sidebar -->
 
                 <!-- Apps Modal -->
                 <!-- Opens the Apps modal found at the bottom of the page, after footer’s markup -->
-                <button type="button" class="btn btn-sm btn-dual mr-2" data-toggle="modal" data-target="#one-modal-apps">
-                    <a href=""><i class="si si-home"></i></a>
-                </button>
+                    <a href="/admin" target="_blank"><i class="si si-home">admin</i></a>
+
                 <!-- END Apps Modal -->
 
                 <!-- Open Search Section (visible on smaller screens) -->

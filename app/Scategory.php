@@ -4,10 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Stelevision extends Model
+class Scategory extends Model
 {
-    protected $table = 'stelevisions';
-
     public function series() {
         return $this->hasMany('App\Series');
     }
